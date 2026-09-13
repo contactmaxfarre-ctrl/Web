@@ -565,9 +565,9 @@
                                 </div>
                             </div>
 
-                            <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify class="space-y-6">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                    <div>
+                                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                        <div>
                                         <label class="block text-xs font-semibold text-slate-700 uppercase mb-2">Nom del Negoci *</label>
                                         <input type="text" name="negoci" required placeholder="Ex: Perruqueria La Seu d'Urgell" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all">                                    </div>
                                     <div>
@@ -593,7 +593,7 @@
 
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-700 uppercase mb-2">Pack d'Interès</label>
-                                    <select id="form-pack-select" name="pack" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all">                                        <option value="79.99">Web Bàsica (29,99€)</option>
+                                    <select id="form-pack-select" name="pack" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all">
                                         <option value="29.99">Web Bàsica (29,99€)</option>
                                         <option value="42.98">Pack Web + Formularis (42,98€)</option>
                                         <option value="62.99">Pack Pro Complet (62,99€)</option>
@@ -860,6 +860,40 @@ window.addEventListener('click', function(event) {
     closeLegalModal();
   }
 });
+async function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+
+            // Canviem el text del botó mentre s'envia
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Enviant...';
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch("https://formsubmit.co/ajax/impulslocalseu@gmail.com", {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const successBanner = document.getElementById('form-success');
+                    if (successBanner) {
+                        successBanner.classList.remove('hidden');
+                        successBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    form.reset();
+                } else {
+                    alert("Hi ha hagut un error en enviar el formulari. Si us plau, torna-ho a provar.");
+                }
+            } catch (error) {
+                alert("Error de connexió. Revisa la teva xarxa i torna-ho a provar.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
+        }
     </script>
 </body>
 </html>
