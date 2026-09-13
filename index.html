@@ -565,16 +565,14 @@
                                 </div>
                             </div>
 
-                            <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                            <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify class="space-y-6">
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <div>
                                         <label class="block text-xs font-semibold text-slate-700 uppercase mb-2">Nom del Negoci *</label>
-                                        <input type="text" required placeholder="Ex: Perruqueria La Seu d'Urgell" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all">
-                                    </div>
+                                        <input type="text" name="negoci" required placeholder="Ex: Perruqueria La Seu d'Urgell" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all">                                    </div>
                                     <div>
                                         <label class="block text-xs font-semibold text-slate-700 uppercase mb-2">Sector *</label>
-                                        <select required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all">
-                                            <option value="">Selecciona el teu sector</option>
+                                        <select name="sector" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all">                                            <option value="">Selecciona el teu sector</option>
                                             <option value="restauracio">Restauració / Bars</option>
                                             <option value="comerc">Comerç / Botiga Local</option>
                                             <option value="estetica">Estètica / Perruqueria</option>
@@ -587,28 +585,25 @@
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <div>
                                         <label class="block text-xs font-semibold text-slate-700 uppercase mb-2">Telèfon / WhatsApp *</label>
-                                        <input type="tel" required placeholder="Ex: 612 345 678" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all">
-                                    </div>
+                                        <input type="tel" name="telefon" required placeholder="Ex: 612 345 678" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all">                                    </div>
                                     <div>
                                         <label class="block text-xs font-semibold text-slate-700 uppercase mb-2">Correu Electrònic *</label>
-                                        <input type="email" required placeholder="Ex: info@elteunegoci.cat" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all">
-                                    </div>
+                                        <input type="email" name="email" required placeholder="Ex: info@elteunegoci.cat" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all">                                    </div>
                                 </div>
 
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-700 uppercase mb-2">Pack d'Interès</label>
-                                    <select id="form-pack-select" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all">
-                                        <option value="79.99">Web Bàsica (29,99€)</option>
-                                        <option value="99.98">Pack Web + Formularis (42,98€)</option>
-                                        <option value="139.99">Pack Pro Complet (62,99€)</option>
+                                    <select id="form-pack-select" name="pack" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all">                                        <option value="79.99">Web Bàsica (29,99€)</option>
+                                        <option value="29.99">Web Bàsica (29,99€)</option>
+                                        <option value="42.98">Pack Web + Formularis (42,98€)</option>
+                                        <option value="62.99">Pack Pro Complet (62,99€)</option>
                                         <option value="personalitzat">Necessito assessorament primer</option>
                                     </select>
                                 </div>
 
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-700 uppercase mb-2">Missatge o dubtes inicials</label>
-                                    <textarea rows="4" placeholder="Explica'ns breument què fa el teu negoci o quin tipus de web t'agradaria tenir..." class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all"></textarea>
-                                </div>
+                                    <textarea name="missatge" rows="4" placeholder="Explica'ns breument què fa el teu negoci o quin tipus de web t'agradaria tenir..." class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-sm transition-all"></textarea>                                </div>
 
                                 <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all duration-300 shadow-md shadow-blue-600/20 flex items-center justify-center gap-2 text-sm">
                                     <i class="fa-solid fa-paper-plane text-xs"></i>
@@ -830,21 +825,6 @@
             document.getElementById('demo-modal').classList.add('hidden');
         }
 
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            
-            // Show custom inline success message
-            const successBanner = document.getElementById('form-success');
-            if (successBanner) {
-                successBanner.classList.remove('hidden');
-            }
-
-            // Reset form fields
-            document.getElementById('contact-form').reset();
-
-            // Smooth scroll to success message
-            successBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
         const legalTexts = {
   'avis-legal': `
     <h2 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; color: #f8fafc;">Avís Legal</h2>
